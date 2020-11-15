@@ -1,5 +1,5 @@
 
-// Asenna ensin express npm install express --save
+// Asenna ensin express npm install express
 //cccc
 
 var express = require('express');
@@ -22,8 +22,8 @@ var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
 
     // Jos haluttaisiin rajata hakuja joidenkin ehtojen perusteella, niin määritettäisiin näin:
-    // res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    // res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
 
     next();
 }
@@ -49,8 +49,8 @@ app.route('/Customer')
 
 app.route('/Customer/:id')
     .put(customerController.update)
-    .delete(customerController.delete); // esim http://127.0.0.1:3002/Asiakas/122
-//
+    .delete(customerController.delete);
+
 
 app.get('/', function(request, response){
     response.statusCode = 200;

@@ -22,7 +22,9 @@
                 <input type="text" name="address" id="address">
                 <label for="custType">Asiaskastyyppi: </label>
                 <select name="custType" class="custType" id="custType">
-                    <option value="empty" selected disabled>Valitse asiakastyyppi...</option>
+                    <option value="" selected >Kaikki</option>
+                    <option value="1">Yritysasiakas</option>
+                    <option value="2">Kuluttajaasiakas</option>
                 </select>
             </div>
             <div>
@@ -72,12 +74,15 @@
                         <input type="text" name="postitmp" id="custPostOff">
                         <label for="custType">Asiaskastyyppi: </label>
                         <select name="asty_avain" class="custType" id="custCustType">
-                            <option value="empty" selected disabled>Valitse asiakastyyppi...</option>
+                            <option value="">Valitse asiakastyyppi...</option>
+                            <option value="1">Yritysasiakas</option>
+                            <option value="2">Kuluttajaasiakas</option>
                         </select>
                     </div>
                 </fieldset>
                 <p id="warning" class="warning">Kaikki kentät ovat pakollisia!</p>
                 <input type="submit" value="Lisää" id="addCustSubmit">
+                <input type="reset" value="Tyhjennä" id="resetcustform">
             </form>
         </div>
     </div>

@@ -1,13 +1,13 @@
-$().ready (() => {
+$().ready(() => {
     let astys = {};
 
     // haetaan asiakastyypit
     $.get({
-        url: "https://codez.savonia.fi/jussi/api/asiakas/tyypit.php",
+        url: "http://127.0.0.1:3002/Types",
         success: (result) => {
             astys = result;
             result.forEach((r) => {
-                let optstr = `<option value="${r.avain}">${r.lyhenne + " " + toTitleCase(r.selite)}</option>`;
+                let optstr = `<option value="${r.avain}">${r.lyhenne + " " + r.selite}</option>`;
                 $('#custType').append(optstr);
                 $('#custCustType').append(optstr);
             });
@@ -16,12 +16,14 @@ $().ready (() => {
 
     // haetaan data
     fetch = () => {
+        $('#data tbody').empty();
         let sp = searcParameters();
         $.get({
-            url: `https://codez.savonia.fi/jussi/api/asiakas/haku.php?${sp}`,
+            url: `http://127.0.0.1:3002/Customer?${sp}`,
             success: (result) => {
                 showResultInTable(result, astys);
-        }});
+            }
+        });
     }
 
     // bindataan click-event
@@ -44,7 +46,7 @@ $().ready (() => {
         resizable: false,
         minWidth: 400,
         width: 'auto',
-        close: function() {
+        close: function () {
             form[0].reset();
             allFields.removeClass("ui-state-error");
         }
@@ -63,7 +65,7 @@ $().ready (() => {
 
     // tekee post-kutsun palvelimelle ja vastauksen saatuaan jatkaa
     addCust = (param) => {
-        $.post("https://codez.savonia.fi/jussi/api/asiakas/lisaa.php", param)
+        $.post("http://127.0.0.1:3002/Customer", param)
             .then((data) => {
                 showAddCustStat(data);
                 $('#addCustDialog').dialog("close");
@@ -75,7 +77,7 @@ $().ready (() => {
     showAddCustStat = (data) => {
         if (data.status == 'ok') {
             $('#addStatus').css("color", "green").text("Asiakkaan lisääminen onnistui")
-            .show().fadeOut(6000);
+                .show().fadeOut(2000);
         } else {
             $('#addStatus').css("color", "red").text("Lisäämisessä tapahtui virhe: " + data.status_text).show();
         }
@@ -135,7 +137,7 @@ searcParameters = () => {
         if (str !== '') {
             str += '&';
         }
-        str+=`asty_avain=${custType}`;
+        str += `asty_avain=${custType}`;
     }
     return str;
 }
@@ -152,6 +154,7 @@ showResultInTable = (result, astys) => {
         astys.forEach(asty => {
             if (asty.avain === element.asty_avain) {
                 trstr += "<td>" + toTitleCase(asty.selite) + "</td>";
+                trstr += "<td>" + asty.selite + "</td>";
             }
         });
         trstr += `<td><button onclick="deleteCustomer(${element.avain});" class="deleteBtn">Poista</button></td>`;
@@ -161,23 +164,24 @@ showResultInTable = (result, astys) => {
 }
 
 // poistetaan asiakas
-deleteCustomer = (key) => {
-    if (isNaN(key)) {
-        return;
-    }
-    $.get({
-        url: `https://codez.savonia.fi/jussi/api/asiakas/poista.php?avain=${key}`,
-        success: (result) => {
-            fetch();
-        }
-    });
-}
+deleteCustomer = function (avain) {
 
-toTitleCase = (str) => {
-    return str.replace(
-        /\w\S*/g,
-        function(txt) {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        }
-    );
-}
+    //$(".deleteBtn").click(() => {
+        //avain = element.avain;
+        $.ajax({
+            url: 'http://localhost:3002/Customer/' + (avain),
+            type: 'DELETE',
+            contentType: 'application/json',
+            //data: JSON.stringify(data), // Tähän voi laittaa datan javascriptin objektina kun tehdään put kysely
+            success: function (result) {
+                // Päivitetään tässä yhteydessä tiedot tauluun
+                //console.log(result) //
+                fetch();
+            }
+        },
+            error, function (ajaxContext) {
+                // Jos joku meni pieleen, niin ajetaan tässä koodia. Vaikka sitten päivitetään jotain käyttöliittymällä
+                alert(ajaxContext.responseText);
+            }
+        );
+    };
