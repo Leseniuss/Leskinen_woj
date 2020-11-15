@@ -91,6 +91,17 @@ $().ready(() => {
         }
     });
 });
+/*function OnSubmit() {
+    var str = $(".form2").serialize();
+        $.post({
+            url: "http://127.0.0.1:3002/Customer/" + (str),
+
+            success: (result) => {
+                fetch();
+            }
+        });
+    return true;
+} */
 
 // tarkistaa onko dialogin kentät täytetty ja näyttää varoitukset jos ei
 validateAddCust = (form) => {
@@ -163,7 +174,7 @@ showResultInTable = (result, astys) => {
     });
 }
 
-// poistetaan asiakas
+// EI toimi EN OSANNU
 deleteCustomer = function (avain) {
 
     //$(".deleteBtn").click(() => {

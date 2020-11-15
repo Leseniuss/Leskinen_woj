@@ -60,7 +60,7 @@
 
     <div class="addCustDialog" id="addCustDialog" title="Asiakkaan lisääminen">
         <div class="addCustDiv" id="addCustDiv">
-            <form>
+            <form method="POST" class="form2">
                 <fieldset style="margin-bottom: 1rem;">
                     <legend>Asiakkaan tiedot</legend>
                     <div class="gridContainer">
@@ -81,7 +81,7 @@
                     </div>
                 </fieldset>
                 <p id="warning" class="warning">Kaikki kentät ovat pakollisia!</p>
-                <input type="submit" value="Lisää" id="addCustSubmit">
+                <input type="submit" value="Lisää" id="addCustSubmit"> <!--onclick="return OnSubmit();"-->
                 <input type="reset" value="Tyhjennä" id="resetcustform">
             </form>
         </div>

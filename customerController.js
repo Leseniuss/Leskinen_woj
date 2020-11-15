@@ -67,7 +67,7 @@
       /*var sql = 'INSERT INTO asiakas (nimi, osoite, postinro, postitmp, luontipvm, asty_avain)'
       VALUE 11", "70100",1);*/
 
-      var sql = 'INSERT INTO asiakas (nimi, osoite, postinro, postitmp, luontipvm, asty_avain) VALUES ("Testis2", "Vuorikatu 4 a 11", "70100", "Kuopio", NOW(), 2)';
+      var sql = 'INSERT INTO asiakas (nimi, osoite, postinro, postitmp, luontipvm, asty_avain) VALUES ("Testis33", "Vuorikatu 4 a 11", "70100", "Kuopio", NOW(), 2)';
 
       connection.query(sql, function (error, results, fields) {
         if (error) {
