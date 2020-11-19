@@ -171,6 +171,7 @@ showResultInTable = (result, astys) => {
             }
         });
         trstr += `<td><button onclick="deleteCustomer(${element.avain});" class="deleteBtn">Poista</button></td>`;
+        trstr += `<td><button onclick="updateCustomer(${element.avain});" class="updateBtn">Päivitä</button></td>`;
         trstr += "</tr>\n";
         $('#data tbody').append(trstr);
     });

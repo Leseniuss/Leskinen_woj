@@ -49,6 +49,7 @@
                     <th>Luontipäivämäärä</th>
                     <th>Asiakastyyppi</th>
                     <th style="min-width: 100px; max-width: 125px;"></th>
+                    <th style="min-width: 100px; max-width: 125px;"></th>
                 </tr>
             </thead>
             <tbody>
@@ -81,9 +82,38 @@
                 <p id="warning" class="warning">Kaikki kentät ovat pakollisia!</p>
                 <input type="submit" value="Lisää" id="addCustSubmit">
                 <input type="reset" value="Tyhjennä" id="resetcustform">
+                
             </form>
         </div>
     </div>
+
+    <!--<div class="updateCustDialog" id="updateCustDialog" title="Asiakkaan muokkaaminen">
+        <div class="updateCustDiv" id="updateCustDiv">
+            <form method="POST" class="updateForm">
+                <fieldset style="margin-bottom: 1rem;">
+                    <legend>Asiakkaan tiedot</legend>
+                    <div class="gridContainer">
+                        <label for="custName">Nimi</label>
+                        <input type="text" name="nimi" id="custName">
+                        <label for="custAddress">Osoite</label>
+                        <input type="text" name="osoite" id="custAddress">
+                        <label for="custPostNbr">Postinumero</label>
+                        <input type="text" name="postinro" id="custPostNbr">
+                        <label for="custPostOff">Postitoimipaikka</label>
+                        <input type="text" name="postitmp" id="custPostOff">
+                        <label for="custType">Asiaskastyyppi: </label>
+                        <select name="asty_avain" class="custType" id="custCustType">
+                            <option value="">Valitse asiakastyyppi...</option>
+                           
+                        </select>
+                    </div>
+                </fieldset>
+                <p id="warning" class="warning">Kaikki kentät ovat pakollisia!</p>
+                <input type="submit" value="Lisää" id="updateCustSubmit">
+                <input type="reset" value="Tyhjennä" id="resetupdatecustform">
+            </form>
+        </div>
+    </div> -->
     
 </body>
 </html>
