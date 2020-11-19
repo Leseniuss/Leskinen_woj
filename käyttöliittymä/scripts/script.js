@@ -7,7 +7,7 @@ $().ready(() => {
         success: (result) => {
             astys = result;
             result.forEach((r) => {
-                let optstr = `<option value="${r.avain}">${r.lyhenne + " " + r.selite}</option>`;
+                let optstr = `<option value="${r.Avain}">${r.Lyhenne + " " + r.Selite}</option>`;
                 $('#custType').append(optstr);
                 $('#custCustType').append(optstr);
             });
@@ -22,8 +22,8 @@ $().ready(() => {
             url: `http://127.0.0.1:3002/Customer?${sp}`,
             success: (result) => {
                 showResultInTable(result, astys);
-            }
-        });
+            
+        }});
     }
 
     // bindataan click-event
@@ -56,16 +56,19 @@ $().ready(() => {
     let form = dialog.find("form")
         .on("submit", (event) => {
             event.preventDefault();
-            if (validateAddCust(form)) {
-                let param = dialog.find("form").serialize();
-                addCust(param);
-            }
+            //if (validateAddCust(form)) {
+            let param = dialog.find("form").serialize();
+            addCust(param);
+            // } 
         }
-    );
+        );
 
     // tekee post-kutsun palvelimelle ja vastauksen saatuaan jatkaa
     addCust = (param) => {
         $.post("http://127.0.0.1:3002/Customer", param)
+            .fail(function (data) {
+                $('#addStatus').css("color", "red").text("Lisäämisessä tapahtui virhe: " + data.responseJSON.error).show();
+            })
             .then((data) => {
                 showAddCustStat(data);
                 $('#addCustDialog').dialog("close");
@@ -163,9 +166,8 @@ showResultInTable = (result, astys) => {
         trstr += "<td>" + element.postitmp + "</td>\n";
         trstr += "<td>" + element.luontipvm + "</td>\n";
         astys.forEach(asty => {
-            if (asty.avain === element.asty_avain) {
-                trstr += "<td>" + toTitleCase(asty.selite) + "</td>";
-                trstr += "<td>" + asty.selite + "</td>";
+            if (asty.Avain === element.asty_avain) {
+                trstr += "<td>" + asty.Selite + "</td>";
             }
         });
         trstr += `<td><button onclick="deleteCustomer(${element.avain});" class="deleteBtn">Poista</button></td>`;
@@ -174,7 +176,7 @@ showResultInTable = (result, astys) => {
     });
 }
 
-// EI toimi EN OSANNU
+/* EI toimi EN OSANNU
 deleteCustomer = function (avain) {
 
     //$(".deleteBtn").click(() => {
@@ -195,4 +197,22 @@ deleteCustomer = function (avain) {
                 alert(ajaxContext.responseText);
             }
         );
-    };
+    }; */
+deleteCustomer = (key) => {
+    if (isNaN(key)) {
+        return;
+    }
+
+    deleteCustomer = (key) => {
+        $.ajax({
+            url: "http://localhost:3002/Customer/" + key,
+            type: 'DELETE',
+            success: () => {
+                fetch();
+            }
+        }).fail(function (err) {
+            console.log("Error " + err);
+        })
+
+    }
+}
