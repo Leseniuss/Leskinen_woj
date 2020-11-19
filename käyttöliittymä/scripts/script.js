@@ -156,7 +156,7 @@ searcParameters = () => {
     return str;
 }
 
-// tyhjentää data-tablen ja tuo haun tuloksen tableen
+// tyhjentää data-tablen ja tuo haun tuloksen tableenrwrqrqwrwq
 showResultInTable = (result, astys) => {
     $('#data tbody').empty();
     result.forEach(element => {
