@@ -90,10 +90,7 @@ module.exports =
           res.send({ "status": "Jokin kenttä on tyhjä tai syötit vääränlaista dataa", "error": error, "response": null });
         }
         else {
-          //console.log("Data = " + JSON.stringify(results));
-          //res.json(results);
-          //console.log("Params = " + JSON.stringify(req.params));
-          //console.log(req.body.nimi);
+          
           res.send({ "status": "ok", "error": ""});
         }
 
@@ -107,7 +104,6 @@ module.exports =
   },
 
   delete: function (req, res) {
-    // connection query...
 
     var sql = "DELETE FROM `asiakas` WHERE `AVAIN`='" + req.params.id + "'";
     connection.query(sql, function (error, results) {
