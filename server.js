@@ -48,7 +48,8 @@ app.route('/Customer')
 
 app.route('/Customer/:id')
     .put(customerController.update)
-    .delete(customerController.delete);
+    .delete(customerController.delete)
+    .get(customerController.fetchOneCustomer);
 
 
 app.get('/', function(request, response){

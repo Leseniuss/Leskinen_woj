@@ -22,8 +22,9 @@ $().ready(() => {
             url: `http://127.0.0.1:3002/Customer?${sp}`,
             success: (result) => {
                 showResultInTable(result, astys);
-            
-        }});
+
+            }
+        });
     }
 
     // bindataan click-event
@@ -52,6 +53,28 @@ $().ready(() => {
         }
     });
 
+    /*let dialog2 = $('#updateCustDialog').dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        minWidth: 400,
+        width: 'auto',
+        close: function () {
+            form[0].reset();
+            allFields.removeClass("ui-state-error");
+        }
+    }); */ 
+
+    /*$(function() {
+        $(".updateCustDialog").dialog({
+            autoOpen : false,
+            modal : true,
+            resizable : false,
+            minWidth : 400,
+            width : 'auto'
+            
+        }); */
+
     // luodaan formi
     let form = dialog.find("form")
         .on("submit", (event) => {
@@ -75,6 +98,20 @@ $().ready(() => {
                 fetch();
             });
     }
+    updateCust = () => {
+        //var str = $(".form2").serialize();
+        console.log(data);
+        $.ajax({
+            url: "http://localhost:3002/Customer/" + req.params.id,
+            type: 'PUT',
+        success: () => {
+            fetch();
+        }
+    }).fail(function (err) {
+        console.log("Error " + err);
+    })
+    
+}
 
     // näyttää lisäyksen onnistumisen tai epäonnistumisen
     showAddCustStat = (data) => {
@@ -93,18 +130,9 @@ $().ready(() => {
             $('#addCustDialog').dialog("open");
         }
     });
+    
 });
-/*function OnSubmit() {
-    var str = $(".form2").serialize();
-        $.post({
-            url: "http://127.0.0.1:3002/Customer/" + (str),
 
-            success: (result) => {
-                fetch();
-            }
-        });
-    return true;
-} */
 
 // tarkistaa onko dialogin kentät täytetty ja näyttää varoitukset jos ei
 validateAddCust = (form) => {
@@ -171,49 +199,67 @@ showResultInTable = (result, astys) => {
             }
         });
         trstr += `<td><button onclick="deleteCustomer(${element.avain});" class="deleteBtn">Poista</button></td>`;
-        trstr += `<td><button onclick="updateCustomer(${element.avain});" class="updateBtn">Päivitä</button></td>`;
+        trstr += `<td><button onclick="updateCustomer(${element.asty_avain}); updateCustomer2(${element.avain}); 
+        updateCustomer3('${element.postinro}'); updateCustomer4('${element.nimi}'); 
+        updateCustomer5('${element.postitmp}'); updateCustomer6('${element.osoite}'); 
+        disableBtn();" class="addCustBtn" id="addCustBtn">Päivitä</button></td>`;
         trstr += "</tr>\n";
         $('#data tbody').append(trstr);
     });
 }
 
-/* EI toimi EN OSANNU
-deleteCustomer = function (avain) {
-
-    //$(".deleteBtn").click(() => {
-        //avain = element.avain;
-        $.ajax({
-            url: 'http://localhost:3002/Customer/' + (avain),
-            type: 'DELETE',
-            contentType: 'application/json',
-            //data: JSON.stringify(data), // Tähän voi laittaa datan javascriptin objektina kun tehdään put kysely
-            success: function (result) {
-                // Päivitetään tässä yhteydessä tiedot tauluun
-                //console.log(result) //
-                fetch();
-            }
-        },
-            error, function (ajaxContext) {
-                // Jos joku meni pieleen, niin ajetaan tässä koodia. Vaikka sitten päivitetään jotain käyttöliittymällä
-                alert(ajaxContext.responseText);
-            }
-        );
-    }; */
-deleteCustomer = (key) => {
-    if (isNaN(key)) {
-        return;
-    }
-
-    deleteCustomer = (key) => {
-        $.ajax({
-            url: "http://localhost:3002/Customer/" + key,
-            type: 'DELETE',
-            success: () => {
-                fetch();
-            }
-        }).fail(function (err) {
-            console.log("Error " + err);
-        })
-
-    }
+updateCustomer = (avain) => {
+    //$('#addCustDialog').dialog("open");
+    //$('#custName').val($("#custName").val() + avain);
+    $('#addCustDialog').dialog("open");
+    $('#custCustType').val($("#custCustType").val() + avain);
+    
 }
+updateCustomer2 = (avain) => {
+    $('#avain').val($("#avain").val() + "Asiakas avain = " + avain);
+    $.get({
+        url: "http://127.0.0.1:3002/Customer/" + avain,
+        success: (result) => {
+            console.log(result)
+            
+        }
+    }).fail(function (err) {
+        console.log("Error " + err);
+    })
+    
+}
+updateCustomer3 = (avain) => {
+    $('#custPostNbr').val($("#custPostNbr").val() + avain);
+}
+updateCustomer4 = (avain) => {
+    $('#custName').val($("#custName").val() + avain);
+}
+updateCustomer5 = (avain) => {
+    $('#custPostOff').val($("#custPostOff").val() + avain);
+}
+updateCustomer6 = (avain) => {
+    $('#custAddress').val($("#custAddress").val() + avain);
+}
+
+
+
+function disableBtn() {
+    addCustSubmit.disabled = true;
+    updateBtn.disabled = false;
+    
+}
+
+
+deleteCustomer = (avain) => {
+    $.ajax({
+        url: "http://localhost:3002/Customer/" + avain,
+        type: 'DELETE',
+        success: () => {
+            fetch();
+        }
+    }).fail(function (err) {
+        console.log("Error " + err);
+    })
+
+}
+

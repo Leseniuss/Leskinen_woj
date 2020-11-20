@@ -42,7 +42,7 @@ fieldset {
     width: 100%;
 }
 
-.searchBtn, .deleteBtn {
+.searchBtn, .deleteBtn, .addCustBtn {
     border: black solid 1px;
     padding: 1rem 2rem;
     text-align: center;

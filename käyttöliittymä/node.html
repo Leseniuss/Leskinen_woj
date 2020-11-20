@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +12,21 @@
     <script src="./scripts/script.js"></script>
     <link rel="stylesheet" href="./styles/style.css">
 </head>
+
+<script>
+    function enableBtn() {
+    addCustSubmit.disabled = false;
+    updateBtn.disabled = true;
+    document.getElementById('avain').value = "";
+}
+</script>
+
 <body>
     <div class="searchFields" id="searchFields">
         <fieldset>
-            <legend><h3>Haku</h3></legend>
+            <legend>
+                <h3>Haku</h3>
+            </legend>
             <div class="searchGrid">
                 <label for="name">Nimi: </label>
                 <input type="text" name="name" id="name">
@@ -22,13 +34,14 @@
                 <input type="text" name="address" id="address">
                 <label for="custType">Asiaskastyyppi: </label>
                 <select name="custType" class="custType" id="custType">
-                    <option value="" selected >Kaikki</option>
-                    
+                    <option value="" selected>Kaikki</option>
+
                 </select>
             </div>
             <div>
                 <input type="button" value="Hae" id="searchBtn" class="searchBtn">
-                <input type="button" value="Lisää asiakas" id="addCustBtn" class="searchBtn">
+                <input type="button" value="Lisää asiakas" id="addCustBtn" class="searchBtn" onclick="enableBtn();">
+                
             </div>
 
         </fieldset>
@@ -37,7 +50,7 @@
     <div class="addStatusDiv">
         <p id="addStatus" style="display: none;"></p>
     </div>
-    
+
     <div class="dataTable" id="dataTable">
         <table class="data" id="data">
             <thead>
@@ -53,19 +66,19 @@
                 </tr>
             </thead>
             <tbody>
-    
+
             </tbody>
         </table>
     </div>
 
-    <div class="addCustDialog" id="addCustDialog" title="Asiakkaan lisääminen">
+    <div class="addCustDialog" id="addCustDialog" title="Asiakkaan lisäys/päivitys">
         <div class="addCustDiv" id="addCustDiv">
-            <form method="POST" class="form2">
+            <form class="form2">
                 <fieldset style="margin-bottom: 1rem;">
                     <legend>Asiakkaan tiedot</legend>
                     <div class="gridContainer">
                         <label for="custName">Nimi</label>
-                        <input type="text" name="nimi" id="custName">
+                        <input type="text" name="nimi" id="custName" value="">
                         <label for="custAddress">Osoite</label>
                         <input type="text" name="osoite" id="custAddress">
                         <label for="custPostNbr">Postinumero</label>
@@ -75,45 +88,46 @@
                         <label for="custType">Asiaskastyyppi: </label>
                         <select name="asty_avain" class="custType" id="custCustType">
                             <option value="">Valitse asiakastyyppi...</option>
-                           
+
                         </select>
                     </div>
                 </fieldset>
                 <p id="warning" class="warning">Kaikki kentät ovat pakollisia!</p>
                 <input type="submit" value="Lisää" id="addCustSubmit">
                 <input type="reset" value="Tyhjennä" id="resetcustform">
+                <button type="button" id="updateBtn" onclick="updateCust();">Päivitä</button>
                 
+
             </form>
+            <input type="text" name="avain" id="avain" disabled>
         </div>
     </div>
 
-    <!--<div class="updateCustDialog" id="updateCustDialog" title="Asiakkaan muokkaaminen">
-        <div class="updateCustDiv" id="updateCustDiv">
-            <form method="POST" class="updateForm">
+    <!--<div class="updateCustDialog" id="updateCustDialog" title="Asiakkaan muokkaus">
+        <div class="updateCustDiv" id="addCustDiv">
+            <form class="updateForm">
                 <fieldset style="margin-bottom: 1rem;">
-                    <legend>Asiakkaan tiedot</legend>
+                    <legend>Muokattavan asiakkaan tiedot</legend>
                     <div class="gridContainer">
-                        <label for="custName">Nimi</label>
-                        <input type="text" name="nimi" id="custName">
-                        <label for="custAddress">Osoite</label>
-                        <input type="text" name="osoite" id="custAddress">
-                        <label for="custPostNbr">Postinumero</label>
-                        <input type="text" name="postinro" id="custPostNbr">
-                        <label for="custPostOff">Postitoimipaikka</label>
-                        <input type="text" name="postitmp" id="custPostOff">
-                        <label for="custType">Asiaskastyyppi: </label>
-                        <select name="asty_avain" class="custType" id="custCustType">
+                        <label for="custName2">Nimi</label>
+                        <input type="text" name="nimi2" id="custName2">
+                        <label for="custAddress2">Osoite</label>
+                        <input type="text" name="osoite2" id="custAddress2">
+                        <label for="custPostNbr2">Postinumero</label>
+                        <input type="text" name="postinro2" id="custPostNbr2">
+                        <label for="custPostOff2">Postitoimipaikka</label>
+                        <input type="text" name="postitmp2" id="custPostOff2">
+                        <label for="custType2">Asiaskastyyppi: </label>
+                        <select name="asty_avain2" class="custType2" id="custCustType2">
                             <option value="">Valitse asiakastyyppi...</option>
-                           
+
                         </select>
                     </div>
                 </fieldset>
-                <p id="warning" class="warning">Kaikki kentät ovat pakollisia!</p>
-                <input type="submit" value="Lisää" id="updateCustSubmit">
-                <input type="reset" value="Tyhjennä" id="resetupdatecustform">
             </form>
         </div>
-    </div> -->
-    
+    </div>-->
+
 </body>
+
 </html>

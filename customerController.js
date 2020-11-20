@@ -28,7 +28,7 @@ module.exports =
 
       }
       else {
-        console.log("Data = " + JSON.stringify(results));
+        //console.log("Data = " + JSON.stringify(results));
         res.json(results);
       }
     });
@@ -53,9 +53,35 @@ module.exports =
         res.json({ "status": "ei toiminut" });
       }
       else {
-        console.log("Data = " + JSON.stringify(results));
+        //console.log("Data = " + JSON.stringify(results));
+        //console.log("Body = " + JSON.stringify(req.body));
+        //console.log("Params = " + JSON.stringify(req.query));
+        res.json(results);
+        
+      }
+    });
+
+  },
+
+  fetchOneCustomer: function (req, res) {
+    var sql = "SELECT * FROM `asiakas` WHERE `AVAIN`='" + req.params.id + "'";
+
+    connection.query(sql, function (error, results) {
+      if (error) {
+        console.log("Virhe haettaessa asiakasta: " + error);
+        res.status(400);
+        res.send({"status": "Luultavasti id:llä ei löydy asiakasta", "error": error});
+      }
+      else {
+        //console.log("Hienoo toimintaa oneCustomer")
+        //console.log(results);
+        //console.log("Body = " + JSON.stringify(req.body));
+        //console.log("Params = " + JSON.stringify(req.params));
+        //console.log("Query = " + JSON.stringify(req.query));
+        //console.log(sql);
         res.json(results);
       }
+
     });
 
   },
@@ -79,7 +105,7 @@ module.exports =
     }
     else {
 
-      var sql = "INSERT INTO asiakas (NIMI, OSOITe, POSTINRO, POSTITMP, LUONTIPVM, ASTY_AVAIN) VALUES ('";
+      var sql = "INSERT INTO asiakas (NIMI, OSOITE, POSTINRO, POSTITMP, LUONTIPVM, ASTY_AVAIN) VALUES ('";
       sql += req.body.nimi + "', '" + req.body.osoite + "', '" + req.body.postinro + "', '" + req.body.postitmp
       sql += "', " + "CURDATE(), '" + req.body.asty_avain + "')";
 
@@ -100,12 +126,16 @@ module.exports =
   },
 
   update: function (req, res) {
-
+    /*console.log("Body = " + JSON.stringify(req.body));
+    var sql = 'UPDATE asiakas SET NIMI ="' + req.body.nimi + '", OSOITE="' + req.body.osoite + '", POSTINRO="' + req.body.postinro + '", POSTITMP="' + req.body.postitmp + '", ASTY_AVAIN="' + req.body.asty_avain + '", WHERE AVAIN="' + req.params.id + "'";
+    connection.query(sql);*/
+    
   },
 
   delete: function (req, res) {
 
     var sql = "DELETE FROM `asiakas` WHERE `AVAIN`='" + req.params.id + "'";
+
     connection.query(sql, function (error, results) {
       if (error) {
         console.log("Virhe poistettaessa asiakasta" + error);
@@ -115,6 +145,7 @@ module.exports =
       else {
         //console.log("body = " + JSON.stringify(req.body));
         //console.log("Params = " + JSON.stringify(req.params));
+        console.log(sql);
         res.json(results);
       }
 
