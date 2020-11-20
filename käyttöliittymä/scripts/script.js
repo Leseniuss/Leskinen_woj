@@ -100,7 +100,7 @@ $().ready(() => {
     }
     updateCust = () => {
         //var str = $(".form2").serialize();
-        console.log(data);
+        console.log("perkele");
         $.ajax({
             url: "http://localhost:3002/Customer/" + req.params.id,
             type: 'PUT',

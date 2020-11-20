@@ -126,9 +126,9 @@ module.exports =
   },
 
   update: function (req, res) {
-    /*console.log("Body = " + JSON.stringify(req.body));
+    console.log("Body = " + JSON.stringify(req.body));
     var sql = 'UPDATE asiakas SET NIMI ="' + req.body.nimi + '", OSOITE="' + req.body.osoite + '", POSTINRO="' + req.body.postinro + '", POSTITMP="' + req.body.postitmp + '", ASTY_AVAIN="' + req.body.asty_avain + '", WHERE AVAIN="' + req.params.id + "'";
-    connection.query(sql);*/
+    connection.query(sql);
     
   },
 
